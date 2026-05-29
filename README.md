@@ -26,3 +26,6 @@ npm run build
 Remarque :
 Le dossier node_modules n'est pas présent dans le dépôt.
 Il est recréé avec la commande npm install.
+
+Accès à l'API :
+Si vous n'êtes pas connecté au réseau de l'IUT, il peut être nécessaire d'utiliser le VPN de l'université pour accéder à l'API Photobox.

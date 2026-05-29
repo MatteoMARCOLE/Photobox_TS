@@ -3,6 +3,20 @@ RA-IL2
 
 Projet Photobox TS
 
+Membre du groupe :
+- Mattéo Marcolé
+
+Fonctionnalités réalisées :
+- Chargement d'une photo depuis l'API Photobox
+- Affichage d'une photo dans la page avec ses informations
+- Récupération de l'identifiant de la photo depuis l'URL avec le hash
+- Affichage de la catégorie de la photo
+- Affichage des commentaires de la photo
+- Affichage d'une galerie de photos
+- Navigation dans la galerie avec les boutons première, précédente, suivante et dernière page
+- Affichage d'une photo au clic sur une vignette
+- Affichage optionnel d'une photo en lightbox
+
 Pour lancer le projet :
 
 1. Cloner le dépôt

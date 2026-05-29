@@ -1,7 +1,7 @@
 import Handlebars from "handlebars";
 import { CommentsResponse, PhotoDetail, CategorieResponse, Commentaire } from "./types";
 
-// affiche une photo dans le HTML grace au script Handlebars
+// affiche une photo dans le HTML grace au script Handlebars dand #la_photo
 export function displayPicture(photo : PhotoDetail): void {
     const source = document.querySelector('#photoTemplate');
     const zone = document.querySelector('#la_photo');
@@ -37,8 +37,9 @@ export function InsertComments(comments: CommentsResponse): void {
     const comm = document.querySelector('#les_commentaires');
 
     if (comm !== null) {
+        comm.innerHTML = "";
         comments.comments.forEach((element : Commentaire) => {
-           comm.innerHTML += "<br><li>(" + element.pseudo + ") <strong> " + element.titre + " </strong> : " + element.content + " - " + element.date + "</li></br>"; 
+           comm.innerHTML += "<li>(" + element.pseudo + ") <strong> " + element.titre + " </strong> : " + element.content + " - " + element.date + "</li>"; 
         });
     } 
 }

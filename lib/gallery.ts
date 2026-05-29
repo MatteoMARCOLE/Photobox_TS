@@ -3,6 +3,7 @@ import { Gallery } from "./types";
 
 let galerie: Gallery | null = null;
 
+// Charge la premiere page 
 export function load(): Promise<Gallery> {
     return loadResource<Gallery>("/www/canals5/phox/api/photos/")
         .then((data: Gallery) => {
@@ -11,8 +12,7 @@ export function load(): Promise<Gallery> {
         });
 }
 
-// fontions qui vont être associées au bouton pour charger la page demandée
-
+// fontions qui vont être associées au bouton pour charger la page demandée (suivante, precedente, premiere, derniere)
 export function pageSuivante(): Promise<Gallery> {
     if (galerie === null) {
         return Promise.reject(new Error("La galerie n'est pas encore chargée"));

@@ -6,6 +6,7 @@ const lien = "https://webetu.iutnc.univ-lorraine.fr";
 let galerieI: Gallery | null = null;
 let indexI: number = 0;
 
+// Charge la photo originale puis affiche la lightbox, puis on change l'id avec les boutons
 function afficherPhotoLightbox(id: number): void {
     loadPicture(id)
         .then((data: PhotoResponse) => {

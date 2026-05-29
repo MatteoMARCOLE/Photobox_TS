@@ -5816,8 +5816,9 @@
   function InsertComments(comments) {
     const comm = document.querySelector("#les_commentaires");
     if (comm !== null) {
+      comm.innerHTML = "";
       comments.comments.forEach((element) => {
-        comm.innerHTML += "<br><li>(" + element.pseudo + ") <strong> " + element.titre + " </strong> : " + element.content + " - " + element.date + "</li></br>";
+        comm.innerHTML += "<li>(" + element.pseudo + ") <strong> " + element.titre + " </strong> : " + element.content + " - " + element.date + "</li>";
       });
     }
   }

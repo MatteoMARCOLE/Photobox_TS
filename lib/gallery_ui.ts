@@ -1,5 +1,6 @@
 import { Gallery, GalleryItem } from "./types";
 
+// Pour chaque photo de la galerie, on crée une image avec un data-photoId (que l'on reutilise lorsque qu'on clique sur une image)
 export function display_galerie(liste: Gallery, photoCliquer: (id: number) => void): void {
     const affichage_galerie = document.querySelector('#galerie_photo');
 

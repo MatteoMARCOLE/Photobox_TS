@@ -1,6 +1,6 @@
 import { Gallery, GalleryItem } from "./types";
 
-export function display_galerie(liste: Gallery): void {
+export function display_galerie(liste: Gallery, photoCliquer: (id: number) => void): void {
     const affichage_galerie = document.querySelector('#galerie_photo');
 
     if (affichage_galerie !== null) {
@@ -16,5 +16,17 @@ export function display_galerie(liste: Gallery): void {
                     data-photoId="${photo.id}">
             `;
         });
+
+        const images = document.querySelectorAll('#galerie_photo img');
+
+        images.forEach((element) => {
+            element.addEventListener('click', () => {
+                const id = element.getAttribute('data-photoId');
+
+                if (id !== null) {
+                    photoCliquer(Number(id));
+                }
+            });
+        });
     }
-}   
+}

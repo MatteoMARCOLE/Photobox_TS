@@ -45,7 +45,7 @@ if (bGalerie !== null)
     bGalerie.addEventListener("click", () => {
         load()
             .then((liste: Gallery) => {
-                display_galerie(liste);
+                display_galerie(liste, getPicture);
             })
             .catch((error: Error) => {
                 console.error(error.message);
@@ -60,7 +60,7 @@ const precedente = document.querySelector('#prev');
 precedente?.addEventListener("click", () => {
     pagePrecedente()
         .then((liste: Gallery) => {
-            display_galerie(liste);
+            display_galerie(liste, getPicture);
         })   
         .catch((error: Error) => {
             console.log(error.message);
@@ -71,7 +71,7 @@ precedente?.addEventListener("click", () => {
 suivante?.addEventListener("click", () => {
     pageSuivante()
         .then((liste: Gallery) => {
-            display_galerie(liste);
+            display_galerie(liste, getPicture);
         })
         .catch((error: Error) => {
             console.error(error.message);
@@ -84,7 +84,7 @@ const derniere = document.querySelector('#last');
 premiere?.addEventListener("click", () => {
     pageFirst()
         .then((liste: Gallery) => {
-            display_galerie(liste);
+            display_galerie(liste, getPicture);
         })
         .catch((error: Error) => {
             console.error(error.message);
@@ -94,7 +94,7 @@ premiere?.addEventListener("click", () => {
 derniere?.addEventListener("click", () => {
     pageLast()
         .then((liste: Gallery) => {
-            display_galerie(liste);
+            display_galerie(liste, getPicture);
         })
         .catch((error: Error) => {
             console.error(error.message);

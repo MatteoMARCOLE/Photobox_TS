@@ -5823,7 +5823,7 @@
   }
 
   // lib/gallery_ui.ts
-  function display_galerie(liste) {
+  function display_galerie(liste, photoCliquer) {
     const affichage_galerie = document.querySelector("#galerie_photo");
     if (affichage_galerie !== null) {
       affichage_galerie.innerHTML = "";
@@ -5835,6 +5835,15 @@
                     alt="${photo.titre}"
                     data-photoId="${photo.id}">
             `;
+      });
+      const images = document.querySelectorAll("#galerie_photo img");
+      images.forEach((element) => {
+        element.addEventListener("click", () => {
+          const id = element.getAttribute("data-photoId");
+          if (id !== null) {
+            photoCliquer(Number(id));
+          }
+        });
       });
     }
   }
@@ -5884,6 +5893,71 @@
     });
   }
 
+  // lib/lightbox.ts
+  var lien = "https://webetu.iutnc.univ-lorraine.fr";
+  var galerieI = null;
+  var indexI = 0;
+  function afficherPhotoLightbox(id) {
+    loadPicture(id).then((data) => {
+      const photo = data.photo;
+      const lightbox = document.querySelector("#lightbox");
+      const img = document.querySelector("#lightbox_img");
+      const titre = document.querySelector("#lightbox_titre");
+      if (lightbox !== null && img !== null && titre !== null) {
+        img.src = lien + photo.url.href;
+        img.alt = photo.titre;
+        titre.innerHTML = photo.titre;
+        lightbox.classList.remove("hidden");
+      }
+    }).catch((error) => {
+      console.error(error.message);
+    });
+  }
+  function ouvrirLightbox(galerie2, id) {
+    galerieI = galerie2;
+    const index = galerie2.photos.findIndex((element) => {
+      return element.photo.id === id;
+    });
+    if (index !== -1) {
+      indexI = index;
+      afficherPhotoLightbox(id);
+    }
+  }
+  function fermerLightbox() {
+    const lightbox = document.querySelector("#lightbox");
+    if (lightbox !== null) {
+      lightbox.classList.add("hidden");
+    }
+  }
+  function LightboxSuivante() {
+    if (galerieI !== null) {
+      indexI++;
+      if (indexI >= galerieI.photos.length) {
+        indexI = 0;
+      }
+      const id = galerieI.photos[indexI].photo.id;
+      afficherPhotoLightbox(id);
+    }
+  }
+  function LightboxPrecedente() {
+    if (galerieI !== null) {
+      indexI--;
+      if (indexI < 0) {
+        indexI = galerieI.photos.length - 1;
+      }
+      const id = galerieI.photos[indexI].photo.id;
+      afficherPhotoLightbox(id);
+    }
+  }
+  function initLightboxButtons() {
+    const close = document.querySelector("#fermer_lightbox");
+    const next = document.querySelector("#lightbox_next");
+    const prev = document.querySelector("#lightbox_prev");
+    close == null ? void 0 : close.addEventListener("click", fermerLightbox);
+    next == null ? void 0 : next.addEventListener("click", LightboxSuivante);
+    prev == null ? void 0 : prev.addEventListener("click", LightboxPrecedente);
+  }
+
   // index.ts
   function getPicture(id) {
     loadPicture(id).then((photos) => {
@@ -5911,7 +5985,9 @@
   if (bGalerie !== null)
     bGalerie.addEventListener("click", () => {
       load().then((liste) => {
-        display_galerie(liste);
+        display_galerie(liste, (id) => {
+          ouvrirLightbox(liste, id);
+        });
       }).catch((error) => {
         console.error(error.message);
       });
@@ -5920,14 +5996,18 @@
   var precedente = document.querySelector("#prev");
   precedente == null ? void 0 : precedente.addEventListener("click", () => {
     pagePrecedente().then((liste) => {
-      display_galerie(liste);
+      display_galerie(liste, (id) => {
+        ouvrirLightbox(liste, id);
+      });
     }).catch((error) => {
       console.log(error.message);
     });
   });
   suivante == null ? void 0 : suivante.addEventListener("click", () => {
     pageSuivante().then((liste) => {
-      display_galerie(liste);
+      display_galerie(liste, (id) => {
+        ouvrirLightbox(liste, id);
+      });
     }).catch((error) => {
       console.error(error.message);
     });
@@ -5936,17 +6016,22 @@
   var derniere = document.querySelector("#last");
   premiere == null ? void 0 : premiere.addEventListener("click", () => {
     pageFirst().then((liste) => {
-      display_galerie(liste);
+      display_galerie(liste, (id) => {
+        ouvrirLightbox(liste, id);
+      });
     }).catch((error) => {
       console.error(error.message);
     });
   });
   derniere == null ? void 0 : derniere.addEventListener("click", () => {
     pageLast().then((liste) => {
-      display_galerie(liste);
+      display_galerie(liste, (id) => {
+        ouvrirLightbox(liste, id);
+      });
     }).catch((error) => {
       console.error(error.message);
     });
   });
+  initLightboxButtons();
 })();
 //# sourceMappingURL=index.js.map

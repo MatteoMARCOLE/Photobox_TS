@@ -2,3 +2,27 @@ img {
     max-width: 30rem;
     height: auto;
 }
+
+.hidden {
+  display: none;
+}
+
+
+/* fenetre lightbox */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: white;
+  z-index: 1000;
+  text-align: center;
+  padding: 20px;
+}
+
+/* affichage en grand de l'image */
+#lightbox img {
+  max-width: 90%;
+  max-height: 80%;
+  display: block;
+  margin: 20px auto;
+}

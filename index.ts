@@ -3,6 +3,7 @@ import { displayPicture, InsertCategory, InsertComments } from "./lib/ui";
 import { display_galerie } from "./lib/gallery_ui";
 import { load, pagePrecedente, pageSuivante, pageFirst, pageLast } from "./lib/gallery";
 import { PhotoResponse, CategorieResponse, CommentsResponse, Gallery } from "./lib/types";
+import { ouvrirLightbox, initLightboxButtons } from "./lib/lightbox";
 
 // Appel loadPicture et affiche dans l'HTML via DisplayPicture par exemple
 function getPicture(id: number): void {
@@ -45,7 +46,8 @@ if (bGalerie !== null)
     bGalerie.addEventListener("click", () => {
         load()
             .then((liste: Gallery) => {
-                display_galerie(liste, getPicture);
+                display_galerie(liste, (id: number) => { 
+                    ouvrirLightbox(liste, id)});
             })
             .catch((error: Error) => {
                 console.error(error.message);
@@ -60,7 +62,9 @@ const precedente = document.querySelector('#prev');
 precedente?.addEventListener("click", () => {
     pagePrecedente()
         .then((liste: Gallery) => {
-            display_galerie(liste, getPicture);
+            display_galerie(liste, (id: number) => {
+                ouvrirLightbox(liste, id);
+            });
         })   
         .catch((error: Error) => {
             console.log(error.message);
@@ -71,7 +75,9 @@ precedente?.addEventListener("click", () => {
 suivante?.addEventListener("click", () => {
     pageSuivante()
         .then((liste: Gallery) => {
-            display_galerie(liste, getPicture);
+            display_galerie(liste, (id: number) => {
+                ouvrirLightbox(liste, id);
+            });
         })
         .catch((error: Error) => {
             console.error(error.message);
@@ -84,7 +90,9 @@ const derniere = document.querySelector('#last');
 premiere?.addEventListener("click", () => {
     pageFirst()
         .then((liste: Gallery) => {
-            display_galerie(liste, getPicture);
+            display_galerie(liste, (id: number) => {
+                ouvrirLightbox(liste, id);
+            });
         })
         .catch((error: Error) => {
             console.error(error.message);
@@ -94,10 +102,14 @@ premiere?.addEventListener("click", () => {
 derniere?.addEventListener("click", () => {
     pageLast()
         .then((liste: Gallery) => {
-            display_galerie(liste, getPicture);
+            display_galerie(liste, (id: number) => {
+                ouvrirLightbox(liste, id);
+            });
         })
         .catch((error: Error) => {
             console.error(error.message);
         })
 })
+
+initLightboxButtons();
 
